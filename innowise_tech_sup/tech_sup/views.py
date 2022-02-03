@@ -41,3 +41,6 @@ class TicketViewSet(PermissionMixin):
 class AnswerViewSet(PermissionMixin):
     serializer_class = AnswerSerializer
     queryset = Answer.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

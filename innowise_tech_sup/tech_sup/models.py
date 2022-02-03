@@ -21,13 +21,14 @@ class Ticket(models.Model):
     body = models.TextField(blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey('auth.User', related_name='posts', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='tickets', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.pk)
 
 
 class Answer(models.Model):
+    owner = models.ForeignKey('auth.User', related_name='answers', on_delete=models.CASCADE)
     answer_text = models.TextField(max_length=5000)
     parent = models.ForeignKey(
         'self', verbose_name="parent", on_delete=models.SET_NULL, blank=True, null=True, related_name='children'

@@ -25,11 +25,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class AnswerSerializer(serializers.ModelSerializer):
     children = RecursiveSerializer(many=True, read_only=True)
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         list_serializer_class = FilterAnswerListSerializer
         model = Answer
-        fields = ('user', 'parent', 'answer_text', 'ticket', 'children',)
+        fields = ('owner', 'parent', 'answer_text', 'ticket', 'children',)
 
 
 class TicketSerializer(serializers.ModelSerializer):
