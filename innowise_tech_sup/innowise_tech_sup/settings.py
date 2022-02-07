@@ -4,7 +4,6 @@ Django settings for innowise_tech_sup project.
 import os
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,8 +128,18 @@ REST_FRAMEWORK = {
 }
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'your_account@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_password'
+EMAIL_HOST_USER = 'artiom95moskvin@gmail.com'
+EMAIL_HOST_PASSWORD = '80293845736artiommoskvin'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+# REDIS_HOST = '0.0.0.0'
+# REDIS_PORT = '6379'
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = "redis://redis:6379"
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ':' + REDIS_PORT + "/0"
+# CELERY_BROKER_URL = "redis://" + REDIS_HOST + ':' + REDIS_PORT + "/0"
