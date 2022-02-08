@@ -2,10 +2,5 @@
 /auth/users/me/	получить/обновить зарегистрированного пользователя
 /auth/jwt/create/	создать JWT, передав действующему пользователю в запросе post эту конечную точку
 /auth/jwt/refresh/	получить новый JWT по истечении времени жизни ранее сгенерированного
-/api/accounts/all-profiles/	получить все профили пользователей и создать новый
-/api/accounts/profile/id/	подробный вид профиля пользователя
-
-
-backports.zoneinfo~=0.2.1; python_version < '3.9'
-  "Mountpoint": "/var/lib/docker/volumes/moskvin_tz_postgres_data/_data",
-        "Name": "moskvin_tz_postgres_data",
+/api/profiles/	получить все профили пользователей и создать новый
+/api//profile/id/	подробный вид профиля пользователя
