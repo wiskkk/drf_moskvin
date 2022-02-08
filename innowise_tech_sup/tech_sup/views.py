@@ -1,12 +1,9 @@
-from django.core.mail import send_mail
 from rest_framework import viewsets, permissions
-from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from django.contrib.auth.models import User
-
 from .models import UserProfile, Ticket, Answer
 from .serializers import UserProfileSerializer, TicketSerializer, AnswerSerializer
+from .tasks import status_updated
 
 
 class PermissionMixin(viewsets.ModelViewSet):
@@ -41,19 +38,15 @@ class TicketViewSet(PermissionMixin):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+        serializer.save(owner_email=self.request.user.email)
 
-    def patch(self, request, pk):
-        saved_ticket = get_object_or_404(Ticket.objects.all(), pk=pk)
-        data = request.data.get('ticket')
-        serializer = TicketSerializer(instance=saved_ticket, data=data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            if Ticket.status == 'r':
-                send_mail('Subject',
-                          'Good job, your ticket has been decided',
-                          'artiom95moskvin@gmail.com',
-                          [UserProfile.email],
-                          fail_silently=False)
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.queryset.get(pk=kwargs.get('pk'))
+        serializer = self.serializer_class(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        if instance.status == 'r':
+            status_updated.delay(kwargs.get('pk'))
         return Response(serializer.data)
 
 
