@@ -1,8 +1,10 @@
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .models import UserProfile, Ticket, Answer
-from .serializers import UserProfileSerializer, TicketSerializer, AnswerSerializer
+
+from .models import Answer, Ticket, UserProfile
+from .serializers import (AnswerSerializer, TicketSerializer,
+                          UserProfileSerializer)
 from .tasks import status_updated
 
 

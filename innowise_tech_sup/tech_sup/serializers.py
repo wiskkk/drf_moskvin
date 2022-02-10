@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import UserProfile, Answer, Ticket
+
+from .models import Answer, Ticket, UserProfile
 
 
 class FilterAnswerListSerializer(serializers.ListSerializer):
@@ -34,7 +35,6 @@ class AnswerSerializer(serializers.ModelSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
-
     answers = AnswerSerializer(many=True, read_only=True)
     owner = serializers.ReadOnlyField(source='owner.username')
     owner_email = serializers.ReadOnlyField(source='owner.email')

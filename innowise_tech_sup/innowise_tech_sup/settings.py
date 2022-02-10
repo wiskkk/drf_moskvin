@@ -16,9 +16,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
-# For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-# ALLOWED_HOSTS = ['0.0.0.0']
 
 # Application definition
 
@@ -30,12 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tech_sup',
-    # third party package for user registration and authentication endpoints
-    'djoser',
-    # rest API implementation library for django
-    'rest_framework',
-    # JWT authentication backend library
-    'rest_framework_simplejwt',
+    'djoser',  # third party package for user registration and authentication endpoints
+    'rest_framework',  # rest API implementation library for django
+    'rest_framework_simplejwt',  # JWT authentication backend library
+
 ]
 
 MIDDLEWARE = [
@@ -135,14 +131,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-
-# REDIS_HOST = '0.0.0.0'
-# REDIS_PORT = '6379'
 CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = "redis://redis:6379"
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ':' + REDIS_PORT + "/0"
-# CELERY_BROKER_URL = "redis://" + REDIS_HOST + ':' + REDIS_PORT + "/0"

@@ -1,10 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    # email = models.OneToOneField(User, on_delete=models.CASCADE, related_name="email", blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -23,7 +22,11 @@ class Ticket(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey('auth.User', related_name='tickets', on_delete=models.CASCADE)
-    owner_email = models.ForeignKey(User, related_name='tickets_email', on_delete=models.CASCADE, null=True, blank=True)
+    owner_email = models.ForeignKey(User,
+                                    related_name='tickets_email',
+                                    on_delete=models.CASCADE,
+                                    null=True,
+                                    blank=True)
 
     def __str__(self):
         return str(self.pk)

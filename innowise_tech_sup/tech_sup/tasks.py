@@ -1,12 +1,15 @@
-from innowise_tech_sup.celery import app
 from django.core.mail import send_mail
+
+from innowise_tech_sup.celery import app
+
 from .models import Ticket
 
 
 @app.task
 def status_updated(ticket_id):
     """
-    Задача для отправки уведомления по электронной почте при изменении статуса на "resolved".
+    Задача для отправки уведомления по электронной почте при изменении статуса
+    на "resolved".
     """
     ticket = Ticket.objects.get(id=ticket_id)
     print(str(ticket.owner.email))

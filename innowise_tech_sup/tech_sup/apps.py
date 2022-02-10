@@ -6,7 +6,4 @@ class TechSupConfig(AppConfig):
     name = 'tech_sup'
 
     def ready(self):
-        from .import signal
-
-
-
+        from . import signal

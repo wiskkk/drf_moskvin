@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import UserProfileViewSet, AnswerViewSet, TicketViewSet
+from .views import AnswerViewSet, TicketViewSet, UserProfileViewSet
 
 router = DefaultRouter()
 router.register(r'profiles', UserProfileViewSet, basename='user')
