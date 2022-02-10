@@ -1,7 +1,9 @@
 import json
+
 import pytest
-from model_bakery import baker
 from django.contrib.auth.models import User
+from model_bakery import baker
+
 from innowise_tech_sup.tech_sup.models import Ticket
 
 pytestmark = pytest.mark.django_db
@@ -103,64 +105,3 @@ class TestTicketEndpoints:
 
         assert response.status_code == 204
         assert Ticket.objects.all().count() == 0
-
-
-
-########################################
-
-#
-#######################################################################################
-#######################################################################################
-#######################################################################################
-#######################################################################################
-#######################################################################################
-# class TicketTest(APITestCase):
-#
-#     def setUp(self):
-#         user_test = User.objects.create_user(username='wiskkk', password='moskvin1')
-#         user_test.save()
-#         # self.user = Token.objects.create(user=user_test)
-#         # self.user_token = Token.objects.get(user=user_test)
-#
-#         self.one_ticket = Ticket.objects.create(status='p', title='work', body='i found a good job', owner=user_test)
-#         Ticket.objects.create(status='p', title='work', body='i found a good job', owner=user_test)
-#
-#     # @property
-#     # def bearer_token(self):
-#     #     user = User.objects.get(id=self.one_ticket.id)
-#     #     refresh = RefreshToken.for_user(user)
-#     #     return {"HTTP_AUTHORIZATION": f'Bearer {refresh.access_token}'}
-#
-#     def test_tickets_list(self):
-#         response = self.client.get('http://0.0.0.0:8000/api/tickets/')
-#         self.assertEqual(response.status_code, status.HTTP_200_OK)
-#         self.assertEqual(len(response.data), 2)
-#
-#     def test_ticket(self):
-#         response = self.client.get(f'http://0.0.0.0:8000/api/tickets/{self.one_ticket.id}/')
-#         serializer_data = TicketSerializer(self.one_ticket).data
-#         self.assertEqual(response.status_code, status.HTTP_200_OK)
-#         self.assertEqual(serializer_data, response.data)
-#
-#     def test_ticket_create_unauthorized(self):
-#         response = self.client.post('http://0.0.0.0:8000/api/tickets/', {'status': 'u',
-#                                                                          'title': 'relationship',
-#                                                                          'body': 'my wife is constantly "tired"'})
-#         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-#
-#     def test_ticket_create_authorized(self):
-#         # self.client.credentials(HTTP_AUTORIZATION='Token' + self.user_token.key)
-#         response = self.client.post('http://0.0.0.0:8000/api/tickets/',
-#                                     {'status': 'u',
-#                                      'title': 'relationship',
-#                                      'body': 'my wife is constantly "tired"'})
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#
-#     # @pytest.fixture
-#     # def api_client():
-#     #     user = User.objects.create_user(username='john', email='js@js.com', password='js.sj')
-#     #     client = APIClient()
-#     #     refresh = RefreshToken.for_user(user)
-#     #     client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
-#     #
-#     #     return client
