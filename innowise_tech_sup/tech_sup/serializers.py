@@ -35,8 +35,8 @@ class AnswerSerializer(serializers.ModelSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
-    answers = AnswerSerializer(many=True, read_only=True)
     owner = serializers.ReadOnlyField(source='owner.username')
+    answers = AnswerSerializer(many=True, read_only=True)
     owner_email = serializers.ReadOnlyField(source='owner.email')
 
     class Meta:

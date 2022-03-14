@@ -12,7 +12,6 @@ def status_updated(ticket_id):
     на "resolved".
     """
     ticket = Ticket.objects.get(id=ticket_id)
-    print(str(ticket.owner.email))
     subject = f'ticket №{ticket_id}'
     message = f'Dear {ticket.owner} your ticket has been resolved i do myself'
     mail_sent = send_mail(subject,
